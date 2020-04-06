@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+<body>
+
+<div data-role="page" id="index">
+
+	<div data-role="header">
+		<h1>KOPERASI SIMPAN PINJAM</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+	<table data-role="table" data-mode="reflow" class="ui-responsive">
+    <thead>
+    <tr>
+      <th data-priority="1">Cicilan</th>
+      <th data-priority="2">Bunga</th>
+    </tr>
+	<tbody>
+		<tr>
+			<td>1 - 6</td>
+			<td>2%</td>
+		</tr>
+		<tr>
+			<td>7 - 12</td>
+			<td>1.5%</td>
+		</tr>
+		<tr>
+			<td>>12</td>
+			<td>1%</td>
+		</tr>
+	</tbody>
+    </thead>
+	</table>
+	<br><br>
+	<a href="#input"><input type=button value='Input Pinjaman'></a>
+	</div><!-- /content -->
+</div><!-- /page -->
+
+<!-- Start of second page -->
+<div data-role="page" id="input">
+<script type="text/javascript">
+		var total = 0;
+		$(document).ready(function(){
+			$("#isi").click(function(){
+			var pinj = document.getElementById("pinjaman").value
+        	var cicil = document.getElementById("cicilan").value
+        	var result = 0
+        	if (parseInt(cicil) <= 6){
+        		result = parseInt(pinj) + ((parseInt(pinj)*2/100)*parseInt(cicil))
+        		total = result + total
+        		var persen = '2%'
+        	}
+        	else if (parseInt(cicil) >= 7){
+        		if (parseInt(cicil) <= 12){
+        		result = parseInt(pinj) + ((parseInt(pinj)*1.5/100)*parseInt(cicil))
+        		total = result + total
+        		var persen = '1.5%'
+        		}
+        		else{
+        		result = parseInt(pinj) + ((parseInt(pinj)*1/100)*parseInt(cicil))
+        		total = result + total
+        		var persen = '1%'
+        		}
+        	}
+        	var app = '<tr><td>'+pinj+'</td><td>'+cicil+'</td><td>'+persen+'</td><td>'+result+'</td></tr>'
+        	document.getElementById("total").innerHTML = total;
+        	$("#tbody").append(app);
+			});
+	    });
+	</script>
+	<div data-role="header">
+		<h1>Input Pinjaman</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+	<label for="text-1">Pinjaman:</label>
+    <input type="text" id="pinjaman" value="">
+	<label for="text-1">Cicilan:</label>
+    <input type="text" id="cicilan" value="">
+	<button id="isi"> Submit </button>
+	<label for="text-1">Total Pinjaman:</label>
+    <div id="total"></div>
+	<br>
+	<a href="#index"><input type=button value='HOME'></a>
+	<a href="#list"><input type=button value='LIST'></a>
+	</div><!-- /content -->
+</div><!-- /page -->
+<div data-role="page" id="list">
+
+	<div data-role="header">
+		<h1>List Pinjaman</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+	<table data-role="table" data-mode="reflow" class="ui-responsive">
+    <thead>
+    <tr>
+      <th data-priority="1">Pinjaman</th>
+      <th data-priority="2">Cicilan</th>
+      <th data-priority="3">Bunga</th>
+      <th data-priority="4">Total</th>
+    </tr>
+	<tbody id="tbody">
+		
+	</tbody>
+    </thead>
+	</table>
+		<a href="#index"><input type=button value='HOME'></a>
+		<a href="#input"><input type=button value='INPUT'></a>
+	</div><!-- /content -->
+
+</div><!-- /page -->
+</body>
+</html>
